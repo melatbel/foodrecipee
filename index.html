@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title> Recipe </title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+
+</head>
+
+<body>
+  <div class="mx-auto" style="width: 1200px;">
+    <div class="mx-auto" style="height: 140px;"></div>
+    <div class="mx-auto" style="padding-left: 320px;">
+
+  <div class="container mt-4" id="menu">
+    <div class="mx-auto" style="text-indent: 50px;"></div>
+    <div class="row">
+      <!-- Dropdown Card -->
+      <div class="card col-md-6">
+        <div class="card-body">
+            <div class="dropdown">
+              <button id="foodButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+               menu
+              </button>
+              <ul class="dropdown-menu" id="foodDropdown" >
+                <li><a class="dropdown-item" href="#" id="p1">Pizza</a></li>
+                <li><a class="dropdown-item" href="#" id="p2">Burger</a></li>
+                <li><a class="dropdown-item" href="#" id="p3">Pasta</a></li>
+                <li><a class="dropdown-item" href="#" id="p4">Salad</a></li>
+                <li><a class="dropdown-item" href="#" id="p5">Sushi</a></li>
+                <li><a class="dropdown-item" href="#" id="p6">Tacos</a></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+
+      <!-- Image and Details Card -->
+      <div id="foodDetails" class="card col-md-6 mr-4" style="display: none;">
+        <div class="mx-auto" style="padding-right: 200px;">
+        <img id="foodImage" class="card-img-top col-8 mt-3" src="" alt="Food Image">
+        <div class="card-body">
+          <h5 class="card-title">Food Details</h5>
+          <div id="ingredients">
+            <!-- Ingredients will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Image and Details Card -->
+<div id="foodDetails" class="card col-md-6 mr-4" style="display: none;">
+  <div class="mx-auto" style="padding-right: 200px;">
+    <img id="foodImage" class="card-img-top col-8 mt-3" src="" alt="Food Image">
+    <div class="card-body">
+      <h5 class="card-title">Food Details</h5>
+      <div id="ingredients">
+        <!-- Ingredients will be displayed here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <script>
+    document.getElementById('foodButton').addEventListener('click', function() {
+      var dropdown = document.getElementById('foodDropdown');
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.getElementById('foodDropdown').addEventListener('click', function(event) {
+      // Check if the clicked element is an anchor tag inside the dropdown
+      if (event.target.tagName === 'A') {
+        // Remove 'area-current' and 'active' classes from all items
+        var dropdownItems = document.querySelectorAll('#foodDropdown .dropdown-item');
+        dropdownItems.forEach(function(item) {
+          item.classList.remove('area-current', 'active');
+        });
+
+        // Add 'area-current' and 'active' classes to the clicked item
+        event.target.classList.add('area-current', 'active');
+
+        // Show the food details container
+        var foodDetails = document.getElementById('foodDetails');
+        foodDetails.style.display = 'block';
+
+        // Display the corresponding image and ingredients
+        displayFoodDetails(event.target.id);
+      }
+    });
+
+    function displayFoodDetails(foodId) {
+      // Placeholder data (replace with actual data from your API)
+      var foodData = {
+        p1: {
+          image: 'https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg',
+          ingredients: ['Dough', 'Tomato Sauce', 'Cheese', 'Pepperoni']
+        },
+        p2: {
+          image: 'data:image/jpeg;base64,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',
+          ingredients: ['1 1/2 lbs ground Ontario pork, divided into 8 portions', '8 slices of cheddar cheese', '4 burger buns', '2 cups iceberg lettuce, shredded', '1 large tomato, sliced']
+        },
+        p3: {
+          image: 'https://cdn77-s3.lazycatkitchen.com/wp-content/uploads/2021/10/roasted-tomato-sauce-portion-800x1200.jpg',
+          ingredients: ['3 tablespoons extra-virgin olive oil',
+
+'1 pound cremini mushrooms, trimmed and sliced',
+
+'2 tablespoons unsalted butter',
+
+'2 medium leeks, trimmed and thinly sliced (white and light green parts only), about 1 1 /2 cups',
+
+'4 medium garlic cloves, thinly sliced',
+
+'2 1/2 teaspoons kosher salt, divided',
+
+'1 pound short pasta, such as penne, casarecce, or pipe rigate',
+
+'3 cups water',
+
+'1 1/3cups low-sodium vegetable broth',
+
+'2/3 cup dry white wine',
+
+'1/2 cup heavy whipping cream',
+
+'1/2 cup grated Parmigiano-Reggiano cheese (about 2 ounces), plus more for serving',
+
+'2 tablespoons chopped fresh dill',
+
+'2 tablespoons chopped fresh flat-leaf parsley',
+
+'1 teaspoon grated lemon zest plus 1 1/2 teaspoons fresh juice (from 1 lemon)',
+
+'1/2 teaspoon black pepper']
+        },
+        p4: {
+          image: 'https://www.foodandwine.com/thmb/IuZPWAXBp4YaT9hn1YLHhuijT3k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/FAW-recipes-big-italian-salad-hero-83e6ea846722478f8feb1eea33158b00.jpg',
+          ingredients: ['Greens', 'Croutons', 'sunflower seeds', 'Tomato','vinaigretee']
+        },
+        p5: {
+          image: 'https://ik.imagekit.io/awwybhhmo/satellite_images/japanese/beyondmenu/hero/16.jpg?tr=w-3840,q-50',
+          ingredients: ['Sushi rice', 'Nori', 'Shrimp', 'Raw Fish','Sesame Seeds','Scallions','Tempura batter']
+        },
+        p6: {
+          image: 'https://www.modernhoney.com/wp-content/uploads/2023/01/Ground-Beef-Tacos-11-crop-scaled.jpg',
+          ingredients: ['Onions', 'Meat', 'Lettuce', 'Sour Cream']
+        },
+        // Add more food items as needed
+      };
+
+      // Get the food details container and set the image source
+      var foodImage = document.getElementById('foodImage');
+      foodImage.src = foodData[foodId].image;
+
+      // Get the ingredients container and display the ingredients
+      var ingredientsContainer = document.getElementById('ingredients');
+      ingredientsContainer.innerHTML = '<strong>Ingredients:</strong><ul>';
+      foodData[foodId].ingredients.forEach(function(ingredient) {
+        ingredientsContainer.innerHTML += '<li>' + ingredient + '</li>';
+      });
+      ingredientsContainer.innerHTML += '</ul>';
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+
+
+
